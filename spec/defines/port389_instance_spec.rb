@@ -78,16 +78,16 @@ ds_bename=userRoot
           :command   => 'setup-ds-admin.pl --file=/var/lib/dirsrv/setup/setup_ldap1.inf --silent',
           :unless    => '/usr/bin/test -e /etc/dirsrv/slapd-ldap1',
           :logoutput => true,
-        }).that_notifies("Service[#{:service_params[:name]}]")
+        }).that_notifies("Service[#{service_params[:name]}]")
       end
 
       it do
-        should contain_service(:service_params[:name]).with({
+        should contain_service(service_params[:name]).with({
           :ensure     => 'running',
           :control    => 'dirsrv',
           :hasstatus  => true,
           :hasrestart => true,
-          :provider   => :service_params[:provider],
+          :provider   => service_params[:provider],
         })
       end
 
@@ -161,13 +161,13 @@ ds_bename=userRoot
 
   describe 'on RedHat 6' do
     let(:facts) {{ :osfamily => 'RedHat', :os => 'Linux', :operatingsystemmajrelease => '6', :operatingsystemrelease => '6' }}
-    let(:service_params) {{ :name => 'ldap1', :provider => 'redhat_instance' }}
+    service_params = { :name => 'ldap1', :provider => 'redhat_instance' }
     include_examples 'port389::instance examples'
   end # redhat 6
 
   describe 'on RedHat 7' do
     let(:facts) {{ :osfamily => 'RedHat', :os => 'Linux', :operatingsystemmajrelease => '7', :operatingsystemrelease => '7' }}
-    let(:service_params) {{ :name => 'dirsrv@ldap1', :provider => 'systemd' }}
+    service_params = {{ :name => 'dirsrv@ldap1', :provider => 'systemd' }}
     include_examples 'port389::instance examples'
   end # redhat 7
 end

@@ -117,7 +117,7 @@ nsslapd-secureport: 636
         # XXX highly internal implimentation specific
         it do
           should contain_port389__instance__ssl('ldap1').
-            that_notifies('Service[ldap1]')
+            that_notifies("Service[#{service_params[:name]}]")
         end
       end # true
 
@@ -260,6 +260,7 @@ nsslapd-secureport: 636
       :operatingsystemrelease => '6',
       :puppetversion => Puppet.version,
     }}
+    service_params = { :name => 'ldap1' }
     include_examples 'port389::instance::ssl examples'
   end # redhat 6
 
@@ -271,6 +272,7 @@ nsslapd-secureport: 636
       :operatingsystemrelease => '7',
       :puppetversion => Puppet.version,
     }}
+    service_params = { :name => 'dirsrv@ldap1' }
     include_examples 'port389::instance::ssl examples'
   end # redhat 7
 end

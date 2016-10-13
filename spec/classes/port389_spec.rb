@@ -187,13 +187,13 @@ describe 'port389', :type => :class do
 
     describe 'on OS version 6' do
       let(:facts) {{ :osfamily => 'RedHat', :os => 'Linux', :operatingsystemmajrelease => '6', :operatingsystemrelease => '6' }}
-      let(:service_params) {{ :name => 'dirsrv' }}
+      :service_params = { :name => 'dirsrv' }
       include_examples 'port389 examples'
     end # os version 6
 
     describe 'on OS version 7' do
       let(:facts) {{ :osfamily => 'RedHat', :os => 'Linux', :operatingsystemmajrelease => '7', :operatingsystemrelease => '7' }}
-      let(:service_params) {{ :name => 'dirsrv.target' }}
+      :service_params = {{ :name => 'dirsrv.target' }}
       include_examples 'port389 examples'
     end # os version 7
   end # on osfamily RedHat

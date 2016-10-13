@@ -49,7 +49,7 @@ describe 'port389', :type => :class do
           })
         end
         it 'should enable dirsrv' do
-          should contain_service(:service_params[:name]).with({
+          should contain_service(service_params[:name]).with({
             :ensure => 'running',
             :enable => true,
           }).that_comes_before('Anchor[port389::end]')
@@ -97,7 +97,7 @@ describe 'port389', :type => :class do
           it { should_not contain_class('port389::tune') }
             it do
             # XXX implimentation specific
-            should contain_service(:service_params[:name]).with({
+            should contain_service(service_params[:name]).with({
               :ensure => 'stopped',
               :enable => false,
             }).that_comes_before('Class[port389::install]')
@@ -114,7 +114,7 @@ describe 'port389', :type => :class do
           it { should_not contain_class('port389::tune') }
           it do
             # XXX implimentation specific
-            should contain_service(:service_params[:name]).with({
+            should contain_service(service_params[:name]).with({
               :ensure => 'stopped',
               :enable => false,
             }).that_comes_before('Class[port389::install]')
@@ -187,13 +187,13 @@ describe 'port389', :type => :class do
 
     describe 'on OS version 6' do
       let(:facts) {{ :osfamily => 'RedHat', :os => 'Linux', :operatingsystemmajrelease => '6', :operatingsystemrelease => '6' }}
-      :service_params = { :name => 'dirsrv' }
+      let(:service_params) {{ :name => 'dirsrv' }}
       include_examples 'port389 examples'
     end # os version 6
 
     describe 'on OS version 7' do
       let(:facts) {{ :osfamily => 'RedHat', :os => 'Linux', :operatingsystemmajrelease => '7', :operatingsystemrelease => '7' }}
-      :service_params = {{ :name => 'dirsrv.target' }}
+      let(:service_params) {{ :name => 'dirsrv.target' }}
       include_examples 'port389 examples'
     end # os version 7
   end # on osfamily RedHat

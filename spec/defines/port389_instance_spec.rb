@@ -161,13 +161,13 @@ ds_bename=userRoot
 
   describe 'on RedHat 6' do
     let(:facts) {{ :osfamily => 'RedHat', :os => 'Linux', :operatingsystemmajrelease => '6', :operatingsystemrelease => '6' }}
-    service_params = { :name => 'ldap1', :provider => 'redhat_instance' }
+    let(:service_params) {{ :name => 'ldap1', :provider => 'redhat_instance' }}
     include_examples 'port389::instance examples'
   end # redhat 6
 
   describe 'on RedHat 7' do
     let(:facts) {{ :osfamily => 'RedHat', :os => 'Linux', :operatingsystemmajrelease => '7', :operatingsystemrelease => '7' }}
-    service_params = {{ :name => 'dirsrv@ldap1', :provider => 'systemd' }}
+    let(:service_params) {{ :name => 'dirsrv@ldap1', :provider => 'systemd' }}
     include_examples 'port389::instance examples'
   end # redhat 7
 end
